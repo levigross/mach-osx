@@ -17,54 +17,54 @@ lsPorts(task_t TargetTask)
 	mach_msg_type_number_t portRightTypesCount;
     mach_port_type_t mac_port_type;
 
-	kr = mach_port_names(TargetTask, &portNames, &portNamesCount, &portRightTypes, &portRightTypesCount);
-	if (kr != KERN_SUCCESS) {
-		fprintf(stderr, "Unable to obtain MACH port names. %d\n", kr);
-		return kr;
-	}
+    kr = mach_port_names(TargetTask, &portNames, &portNamesCount, &portRightTypes, &portRightTypesCount);
+    if (kr != KERN_SUCCESS) {
+      fprintf(stderr, "Unable to obtain MACH port names. %d\n", kr);
+      return kr;
+  }
 
-	for (unsigned int p = 0; p < portNamesCount; p++) {
-        printf("Hex Code: ");
-		printf("0x%x 0x%x\n", portNames[p], portRightTypes[p]);
-        switch(portRightTypes[p])
-        {
-            case MACH_PORT_TYPE_NONE:
-                printf("This port has send right\n");
-                break;
-            case MACH_PORT_TYPE_RECEIVE:
-               printf("This port has receive right\n");
-               break;
-            case MACH_PORT_TYPE_SEND_ONCE:
-                printf("This port has a send-once right\n");
-                break;
-            case MACH_PORT_TYPE_PORT_SET:
-                printf("This port has a port set\n");
-                break;
-            case MACH_PORT_TYPE_DEAD_NAME:
-                printf("The name is a dead name\n");
-                break;
-            case MACH_PORT_TYPE_DNREQUEST:
-                printf("A dead-name request has been registered for the right.\n");
-                break;
-            case MACH_PORT_TYPE_PORT_RIGHTS:
-            case MACH_PORT_TYPE_SEND_RECEIVE:
-                printf("Port has both send and receive right\n");
-                break;
-            case MACH_PORT_TYPE_SEND_RIGHTS:
-                printf("Port had send right\n");
-                break;
-            case MACH_PORT_TYPE_PORT_OR_DEAD:
-                printf("Port has send receive rights or is dead\n");
-                break;
-            case MACH_PORT_TYPE_ALL_RIGHTS:
-                printf("Port has all rights\n");
-                break;
-            default:
-                printf("Unknown PORT right 0x%x\n", portRightTypes[p]);
-        }
-	}
+  for (unsigned int p = 0; p < portNamesCount; p++) {
+    printf("Hex Code: ");
+    printf("0x%x 0x%x\n", portNames[p], portRightTypes[p]);
+    switch(portRightTypes[p])
+    {
+        case MACH_PORT_TYPE_NONE:
+        printf("This port has send right\n");
+        break;
+        case MACH_PORT_TYPE_RECEIVE:
+        printf("This port has receive right\n");
+        break;
+        case MACH_PORT_TYPE_SEND_ONCE:
+        printf("This port has a send-once right\n");
+        break;
+        case MACH_PORT_TYPE_PORT_SET:
+        printf("This port has a port set\n");
+        break;
+        case MACH_PORT_TYPE_DEAD_NAME:
+        printf("The name is a dead name\n");
+        break;
+        case MACH_PORT_TYPE_DNREQUEST:
+        printf("A dead-name request has been registered for the right.\n");
+        break;
+        case MACH_PORT_TYPE_PORT_RIGHTS:
+        case MACH_PORT_TYPE_SEND_RECEIVE:
+        printf("Port has both send and receive right\n");
+        break;
+        case MACH_PORT_TYPE_SEND_RIGHTS:
+        printf("Port had send right\n");
+        break;
+        case MACH_PORT_TYPE_PORT_OR_DEAD:
+        printf("Port has send receive rights or is dead\n");
+        break;
+        case MACH_PORT_TYPE_ALL_RIGHTS:
+        printf("Port has all rights\n");
+        break;
+        default:
+        printf("Unknown PORT right 0x%x\n", portRightTypes[p]);
+    }
+}
 
-	return kr;
+return kr;
 }
 
 int 
