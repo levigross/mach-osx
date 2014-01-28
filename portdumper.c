@@ -47,9 +47,9 @@ int main(int argc, const char * argv[])
     }
     
     int pid = atoi(argv[1]);
-    kr = task_for_pid(current_task(), pid, &targetTask);
-    lsPorts(targetTask);
-    kr = mach_port_deallocate(current_task(), targetTask);
+    task_for_pid(current_task(), pid, &targetTask);
+    kr = lsPorts(targetTask);
+    mach_port_deallocate(current_task(), targetTask);
     return kr;
     
 }
