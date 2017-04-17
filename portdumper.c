@@ -29,6 +29,9 @@ lsPorts(task_t TargetTask)
     switch(portRightTypes[p])
     {
         case MACH_PORT_TYPE_NONE:
+        printf("This port has no rights\n");
+        break;
+        case MACH_PORT_TYPE_SEND:
         printf("This port has send right\n");
         break;
         case MACH_PORT_TYPE_RECEIVE:
@@ -51,7 +54,7 @@ lsPorts(task_t TargetTask)
         printf("Port has both send and receive right\n");
         break;
         case MACH_PORT_TYPE_SEND_RIGHTS:
-        printf("Port had send right\n");
+        printf("Port has all send rights\n");
         break;
         case MACH_PORT_TYPE_PORT_OR_DEAD:
         printf("Port has send receive rights or is dead\n");
@@ -79,7 +82,7 @@ main(int argc, const char *argv[])
         fprintf(stderr, "You must run this program as root\n");
         exit(-1);
     }
-    if (argv[0] == NULL) {
+    if (argc < 2) {
         fprintf(stderr, "You must provide a target PID\n");
         exit(-1);
     }
